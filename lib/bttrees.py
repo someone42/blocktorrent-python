@@ -659,12 +659,12 @@ class BTMerkleTree:
                             #print "found edge at ", keys[i]
                             hashes[i] = hashes[1] # this can be overwritten later
                             break
-                if not hashes[i]:
-                    # One of the child keys is not available; abort validation.
-                    # This can occur if intermediate hashes have been added
-                    # via. addhash(), and not all descendants of that
-                    # intermediate hash have been added.
-                    return
+        if not hashes[1] or not hashes[2]:
+            # One of the child keys is not available; abort validation.
+            # This can occur if intermediate hashes have been added
+            # via. addhash(), and not all descendants of that
+            # intermediate hash have been added.
+            return
 
         if self.calcparent(hashes[1], hashes[2]) == hashes[0]:
             if hashes[1] == hashes[2] and level == self.levels: # right edge, bottom row
